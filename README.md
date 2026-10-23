@@ -10,7 +10,7 @@
 ![Platform](https://img.shields.io/badge/platform-Fedora%20Linux-51A2DA)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
-<img src="docs/screenshot-dark.png" alt="Fedora Android Flasher — Liquid Glass Dark" width="460">
+<img src="docs/screenshot-dark.png" alt="Android Flasher for Linux — Liquid Glass Dark" width="460">
 
 </div>
 
