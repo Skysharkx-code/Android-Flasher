@@ -1,6 +1,6 @@
 <div align="center">
 
-# Android Flasher for Linux
+# Fedora Android Flasher
 
 **One-button flashing of custom recoveries, kernels and ROMs for Android — a small GUI for Fedora Linux.**
 
@@ -10,7 +10,7 @@
 ![Platform](https://img.shields.io/badge/platform-Fedora%20Linux-51A2DA)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
-<img src="docs/screenshot-dark.png" alt="Android Flasher for Linux — Liquid Glass Dark" width="460">
+<img src="docs/screenshot-dark.png" alt="Fedora Android Flasher — Liquid Glass Dark" width="460">
 
 </div>
 
@@ -34,8 +34,10 @@ Pick your files, press **Flash automatically** — the program does the rest:
 - 🧪 **Test without writing** — boots an image once with `fastboot boot`
 - 📏 Image-vs-partition size check with a clear warning
 - 🧹 Optional data wipe, vbmeta (verity/verification off), reboot to system after install
-- 🎨 Themes: White · Dark · Pure Black · Liquid Glass White · Liquid Glass Dark
-- 🌍 Languages: Русский · English · Deutsch · 中文 · 日本語
+- 🎨 8 themes: White · Dark · Pure Black · Liquid Glass White / Dark / Pink / Blue / Mint
+- 🔘 Pixel / Material You style pill-shaped buttons
+- 🌍 8 languages: Русский · English · Deutsch · 中文 · 日本語 · Español · Français · Português
+- 🔤 Title set in the [Fascinate](https://fonts.google.com/specimen/Fascinate) display font (fetched automatically)
 - 📁 Native system file dialog (zenity / kdialog), starts in your Downloads folder
 
 ## Requirements
@@ -62,6 +64,8 @@ python3 fedora_flasher.py
 ```
 
 **Update:** `git pull` and run `./install.sh` again. Your theme, language and downloaded platform-tools are kept.
+
+> The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `fedora_flasher.py`.
 
 ## Usage
 
@@ -115,6 +119,7 @@ The top of the window shows the device as `[adb: device]`.
 ```
 fedora_flasher.py   # the whole application (Tkinter)
 install.sh          # dependencies + app-menu entry
+fonts/              # optional: Fascinate-Regular.ttf
 docs/               # screenshots
 CHANGELOG.md
 LICENSE
@@ -129,3 +134,5 @@ New translations: strings live in the `TRANSLATIONS` dictionary in `fedora_flash
 ## License
 
 [MIT](LICENSE)
+
+The title font **Fascinate** is © Astigmatic and licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/); it is not part of this repository's MIT license.
