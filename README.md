@@ -10,8 +10,6 @@
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-51A2DA)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
-<img src="docs/screenshot-dark.png" alt="Fedora Android Flasher — Liquid Glass Dark" width="460">
-
 </div>
 
 > ⚠️ **Use at your own risk.** Flashing can erase all data and, with a wrong file, brick a device.
