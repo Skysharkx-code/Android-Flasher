@@ -2,12 +2,12 @@
 
 # Fedora Android Flasher
 
-**One-button flashing of custom recoveries, kernels and ROMs for Android — a small GUI for Fedora Linux.**
+**One-button flashing of custom recoveries, kernels and ROMs for Android — a small GUI for Linux (Fedora, Debian/Ubuntu, Arch) and Windows.**
 
 [Changelog](CHANGELOG.md)
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Platform](https://img.shields.io/badge/platform-Fedora%20Linux-51A2DA)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-51A2DA)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB)
 
 <img src="docs/screenshot-dark.png" alt="Fedora Android Flasher — Liquid Glass Dark" width="460">
@@ -29,7 +29,7 @@ Pick your files, press **Flash automatically** — the program does the rest:
 
 ### Features
 
-- 🔌 Automatic platform-tools download and one-click **udev** setup (no root shell needed for USB access)
+- 🔌 Automatic platform-tools download; one-click **udev** setup on Linux (USB access without a root shell)
 - 🧠 Smart file recognition: recovery/boot `.img`, `vbmeta`, ROM ZIP and **AnyKernel3 kernel ZIP** (detected by *content*, not by name)
 - 🧪 **Test without writing** — boots an image once with `fastboot boot`
 - 📏 Image-vs-partition size check with a clear warning
@@ -42,28 +42,49 @@ Pick your files, press **Flash automatically** — the program does the rest:
 
 ## Requirements
 
-- Fedora Linux (developed on Fedora Workstation; other distros should work but are untested)
-- Python 3.9+ with Tk: `sudo dnf install python3-tkinter`
-- Optional: `zenity` (native file dialog), `polkit` (for the udev setup via `pkexec`)
+| System | What you need |
+|---|---|
+| **Fedora** (and derivatives) | `python3-tkinter` · optional: `zenity`, `polkit` |
+| **Debian / Ubuntu** (Mint, Pop!_OS, Kali…) | `python3-tk` · `zenity` · `pkexec` |
+| **Arch** (Manjaro, EndeavourOS…) | `python` · `tk` · `zenity` · `polkit` |
+| **Windows 10 / 11** | Python 3.8+ from python.org (with *tcl/tk*) — or a standalone `AndroidFlasher.exe` built with `build_windows.bat` |
+
 - A phone with an **unlockable bootloader**
+- Developed and tested on **Fedora Workstation**. The other systems are supported through distribution detection and platform-specific code paths but are less tested — please open an issue if something breaks.
 
 ## Install
+
+### Linux
 
 ```bash
 git clone https://github.com/<your-username>/fedora-android-flasher.git
 cd fedora-android-flasher
 chmod +x install.sh
-./install.sh          # installs dependencies and adds an app-menu entry
+./install.sh          # detects apt / pacman / dnf, installs dependencies, adds an app-menu entry
 ```
 
 Or run it directly without installing:
 
 ```bash
+# Debian / Ubuntu
+sudo apt install python3 python3-tk zenity
+# Arch
+sudo pacman -S python tk zenity
+# Fedora
 sudo dnf install python3-tkinter zenity
+
 python3 fedora_flasher.py
 ```
 
-**Update:** `git pull` and run `./install.sh` again. Your theme, language and downloaded platform-tools are kept.
+**Update:** `git pull` and run `./install.sh` again. Your theme, language and downloaded platform-tools are kept (`~/.local/share/fedora-flasher/`).
+
+### Windows
+
+1. **From source:** install Python 3 from python.org (keep *tcl/tk and IDLE* checked) and double-click `AndroidFlasher.bat` (or run `py fedora_flasher.py`).
+2. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
+3. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
+
+Settings and downloaded platform-tools live in `%LOCALAPPDATA%\fedora-flasher\`.
 
 > The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `fedora_flasher.py`.
 
@@ -111,14 +132,19 @@ The top of the window shows the device as `[adb: device]`.
 | `adb: unauthorized` | Unlock the phone and tap *Allow USB debugging* |
 | Phone not detected | Re-run the udev setup (`51-android-flasher.rules`), replug the cable |
 | `Image too large` / flash fails | The image does not fit the partition — check which partition it is meant for |
-| Chinese / Japanese shows boxes | `sudo dnf install google-noto-sans-cjk-fonts` |
+| Chinese / Japanese shows boxes | Fedora: `google-noto-sans-cjk-fonts` · Debian/Ubuntu: `fonts-noto-cjk` · Arch: `noto-fonts-cjk` |
+| Windows: phone not seen in fastboot | Install the Google USB Driver / your vendor's driver, then replug |
+| Windows: SmartScreen / antivirus warning on the exe | A self-built PyInstaller exe is unsigned. Run from source instead (`AndroidFlasher.bat`) |
+| ARM Linux: platform-tools can't be downloaded | Google's tools are x86_64 only — install `adb`/`fastboot` from your distro (`apt install adb fastboot` · `pacman -S android-tools`) |
 | Stuck in a bootloop | Hold **Vol Down + Power** (fastboot) and flash a known-good image again |
 
 ## Project layout
 
 ```
 fedora_flasher.py   # the whole application (Tkinter)
-install.sh          # dependencies + app-menu entry
+install.sh          # Linux: dependencies (apt / pacman / dnf) + app-menu entry
+AndroidFlasher.bat  # Windows: run from source
+build_windows.bat   # Windows: build AndroidFlasher.exe
 fonts/              # optional: Fascinate-Regular.ttf
 docs/               # screenshots
 CHANGELOG.md
@@ -127,7 +153,7 @@ LICENSE
 
 ## Contributing
 
-Issues and pull requests are welcome. When reporting a bug please include: device model, ROM/recovery name and version, the log from the program window, and your Fedora version.
+Issues and pull requests are welcome. When reporting a bug please include: device model, ROM/recovery name and version, the log from the program window, and your OS / distribution and version.
 
 New translations: strings live in the `TRANSLATIONS` dictionary in `fedora_flasher.py` (the Russian text is the key).
 

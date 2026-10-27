@@ -2,6 +2,16 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.0] — 2026-10-23
+
+### Added
+- **Windows** support: Windows platform-tools, no console windows, DPI awareness, Segoe UI / Consolas fonts, `AndroidFlasher.bat` and `build_windows.bat` (builds a standalone `AndroidFlasher.exe`).
+- **Debian/Ubuntu and Arch** support: `install.sh` detects apt / pacman / dnf and installs the right packages.
+- Helpful messages with the matching system package command when platform-tools cannot be downloaded or the CPU is not x86_64.
+
+### Changed
+- Compatible with Python 3.8+.
+
 ## [1.1.0] — 2026-10-23
 
 ### Added
