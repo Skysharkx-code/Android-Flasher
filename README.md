@@ -55,7 +55,7 @@ Pick your files, press **Flash automatically** — the program does the rest:
 ### Linux
 
 ```bash
-git clone https://github.com/<your-username>/fedora-android-flasher.git
+git clone https://github.com/Skysharkx-code/fedora-android-flasher.git
 cd fedora-android-flasher
 chmod +x install.sh
 ./install.sh          # detects apt / pacman / dnf, installs dependencies, adds an app-menu entry
