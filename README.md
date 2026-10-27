@@ -1,6 +1,6 @@
 <div align="center">
 
-# Fedora Android Flasher
+# Android Flasher
 
 **One-button flashing of custom recoveries, kernels and ROMs for Android — a small GUI for Linux (Fedora, Debian/Ubuntu, Arch) and Windows.**
 
