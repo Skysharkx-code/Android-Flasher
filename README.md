@@ -32,7 +32,8 @@ Pick your files, press **Flash automatically** — the program does the rest:
 - 🧪 **Test without writing** — boots an image once with `fastboot boot`
 - 📏 Image-vs-partition size check with a clear warning
 - 🧹 Optional data wipe, vbmeta (verity/verification off), reboot to system after install
-- 🎨 8 themes: White · Dark · Pure Black · Liquid Glass White / Dark / Pink / Blue / Mint
+- 🎨 10 themes: White · Dark · Pure Black · Liquid Glass White / Dark / Pink / Blue / Mint · **Custom Image** · **Liquid Glass Image**
+- 🖼️ Your own picture or animated **GIF** as the window background (optionally with frosted-glass panels)
 - 🔘 Pixel / Material You style pill-shaped buttons
 - 🌍 8 languages: Русский · English · Deutsch · 中文 · 日本語 · Español · Français · Português
 - 🔤 Title set in the [Fascinate](https://fonts.google.com/specimen/Fascinate) display font (fetched automatically)
@@ -42,10 +43,12 @@ Pick your files, press **Flash automatically** — the program does the rest:
 
 | System | What you need |
 |---|---|
-| **Fedora** (and derivatives) | `python3-tkinter` · optional: `zenity`, `polkit` |
-| **Debian / Ubuntu** (Mint, Pop!_OS, Kali…) | `python3-tk` · `zenity` · `pkexec` |
-| **Arch** (Manjaro, EndeavourOS…) | `python` · `tk` · `zenity` · `polkit` |
-| **Windows 10 / 11** | Python 3.8+ from python.org (with *tcl/tk*) — or a standalone `AndroidFlasher.exe` built with `build_windows.bat` |
+| **Fedora** (and derivatives) | `python3-tkinter` · optional: `zenity`, `polkit`, `python3-pillow-tk` |
+| **Debian / Ubuntu** (Mint, Pop!_OS, Kali…) | `python3-tk` · `zenity` · `pkexec` · optional: `python3-pil` `python3-pil.imagetk` |
+| **Arch** (Manjaro, EndeavourOS…) | `python` · `tk` · `zenity` · `polkit` · optional: `python-pillow` |
+| **Windows 10 / 11** | Python 3.8+ from python.org (with *tcl/tk*) — or a standalone `AndroidFlasher.exe` built with `build_windows.bat` · optional: `py -3 -m pip install pillow` |
+
+**Pillow is optional** — it is only needed for the *Custom Image* and *Liquid Glass Image* themes. `install.sh` and `build_windows.bat` take care of it; everything else works without it.
 
 - A phone with an **unlockable bootloader**
 - Developed and tested on **Fedora Workstation**. The other systems are supported through distribution detection and platform-specific code paths but are less tested — please open an issue if something breaks.
@@ -65,26 +68,26 @@ Or run it directly without installing:
 
 ```bash
 # Debian / Ubuntu
-sudo apt install python3 python3-tk zenity
+sudo apt install python3 python3-tk zenity python3-pil python3-pil.imagetk
 # Arch
-sudo pacman -S python tk zenity
+sudo pacman -S python tk zenity python-pillow
 # Fedora
-sudo dnf install python3-tkinter zenity
+sudo dnf install python3-tkinter zenity python3-pillow-tk
 
-python3 fedora_flasher.py
+python3 "Android Flasher.py"
 ```
 
 **Update:** `git pull` and run `./install.sh` again. Your theme, language and downloaded platform-tools are kept (`~/.local/share/fedora-flasher/`).
 
 ### Windows
 
-1. **From source:** install Python 3 from python.org (keep *tcl/tk and IDLE* checked) and double-click `AndroidFlasher.bat` (or run `py fedora_flasher.py`).
+1. **From source:** install Python 3 from python.org (keep *tcl/tk and IDLE* checked) and double-click `AndroidFlasher.bat` (or run `py "Android Flasher.py"`). For the image themes also run `py -3 -m pip install pillow` once.
 2. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
 3. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
 
 Settings and downloaded platform-tools live in `%LOCALAPPDATA%\fedora-flasher\`.
 
-> The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `fedora_flasher.py`.
+> The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `Android Flasher.py`.
 
 ## Usage
 
@@ -105,6 +108,15 @@ The top of the window shows the device as `[adb: device]`.
 4. Reboot to system from recovery.
 
 > Sideload may stop at ~47% with `adb: failed to read command: Success` — this is normal on many recoveries. Check the result on the phone screen.
+
+## Image themes
+
+Open **Theme** and pick **Custom Image** or **Liquid Glass Image**, then choose a picture or GIF (PNG, JPG, WEBP, BMP, GIF). Change it later with **Theme → Choose picture/GIF…**.
+
+- **Custom Image** — your picture behind the window, panels are a dark translucent film.
+- **Liquid Glass Image** — the same, but panels become frosted glass (blur + tint + highlight + thin border).
+- Button and checkbox colours are taken from the picture. The log area stays solid for readability.
+- Animated GIFs are limited to ~100 frames at ≤720 px and use noticeably more CPU — small GIFs work best.
 
 ## How files are recognized
 
@@ -134,12 +146,13 @@ The top of the window shows the device as `[adb: device]`.
 | Windows: phone not seen in fastboot | Install the Google USB Driver / your vendor's driver, then replug |
 | Windows: SmartScreen / antivirus warning on the exe | A self-built PyInstaller exe is unsigned. Run from source instead (`AndroidFlasher.bat`) |
 | ARM Linux: platform-tools can't be downloaded | Google's tools are x86_64 only — install `adb`/`fastboot` from your distro (`apt install adb fastboot` · `pacman -S android-tools`) |
+| Image themes show a “needs Pillow” message | Install Pillow with Tk support: Debian/Ubuntu `python3-pil python3-pil.imagetk` · Fedora `python3-pillow-tk` · Arch `python-pillow` · Windows `pip install pillow` |
 | Stuck in a bootloop | Hold **Vol Down + Power** (fastboot) and flash a known-good image again |
 
 ## Project layout
 
 ```
-fedora_flasher.py   # the whole application (Tkinter)
+Android Flasher.py  # the whole application (Tkinter)
 install.sh          # Linux: dependencies (apt / pacman / dnf) + app-menu entry
 AndroidFlasher.bat  # Windows: run from source
 build_windows.bat   # Windows: build AndroidFlasher.exe
@@ -153,7 +166,7 @@ LICENSE
 
 Issues and pull requests are welcome. When reporting a bug please include: device model, ROM/recovery name and version, the log from the program window, and your OS / distribution and version.
 
-New translations: strings live in the `TRANSLATIONS` dictionary in `fedora_flasher.py` (the Russian text is the key).
+New translations: strings live in the `TRANSLATIONS` dictionary in `Android Flasher.py` (the Russian text is the key).
 
 ## License
 
