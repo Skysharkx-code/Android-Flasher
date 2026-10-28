@@ -81,9 +81,8 @@ python3 "Android Flasher.py"
 
 ### Windows
 
-1. **From source:** install Python 3 from python.org (keep *tcl/tk and IDLE* checked) and double-click `AndroidFlasher.bat` (or run `py "Android Flasher.py"`). For the image themes also run `py -3 -m pip install pillow` once.
-2. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
-3. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
+1. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
+2. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
 
 Settings and downloaded platform-tools live in `%LOCALAPPDATA%\fedora-flasher\`.
 
