@@ -35,7 +35,7 @@ Pick your files, press **Flash automatically** — the program does the rest:
 - 🎨 10 themes: White · Dark · Pure Black · Liquid Glass White / Dark / Pink / Blue / Mint · **Custom Image** · **Liquid Glass Image**
 - 🖼️ Your own picture or animated **GIF** as the window background (optionally with frosted-glass panels)
 - 🔘 Pixel / Material You style pill-shaped buttons
-- 🌍 8 languages: Русский · English · Deutsch · 中文 · 日本語 · Español · Français · Português
+- 🌍 15 languages (English by default): Русский · English · Українська · Polski · Deutsch · Nederlands · Italiano · Español · Français · Português · Türkçe · Bahasa Indonesia · 中文 · 日本語 · 한국어
 - 🔤 Title set in the [Fascinate](https://fonts.google.com/specimen/Fascinate) display font (fetched automatically)
 - 📁 Native system file dialog (zenity / kdialog), starts in your Downloads folder
 
@@ -74,19 +74,20 @@ sudo pacman -S python tk zenity python-pillow
 # Fedora
 sudo dnf install python3-tkinter zenity python3-pillow-tk
 
-python3 "Android Flasher.py"
+python3 Android_Flasher.py
 ```
 
 **Update:** `git pull` and run `./install.sh` again. Your theme, language and downloaded platform-tools are kept (`~/.local/share/fedora-flasher/`).
 
 ### Windows
 
-1. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
-2. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
+1. **From source:** install Python 3 from python.org (keep *tcl/tk and IDLE* checked) and double-click `AndroidFlasher.bat` (or run `py Android_Flasher.py`). For the image themes also run `py -3 -m pip install pillow` once.
+2. **Standalone exe (optional):** on a Windows PC run `build_windows.bat` → `dist\AndroidFlasher.exe`. It works without Python installed.
+3. **USB driver:** install the Google USB Driver or your phone maker's driver so Windows recognizes the phone in fastboot mode.
 
 Settings and downloaded platform-tools live in `%LOCALAPPDATA%\fedora-flasher\`.
 
-> The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `Android Flasher.py`.
+> The title font is optional. If it cannot be downloaded the app simply uses the default font. To bundle it yourself, put `Fascinate-Regular.ttf` into a `fonts/` folder next to `Android_Flasher.py`.
 
 ## Usage
 
@@ -132,7 +133,7 @@ Open **Theme** and pick **Custom Image** or **Liquid Glass Image**, then choose 
 - **Xiaomi / Huawei / Sony** require the manufacturer's official unlock method first (e.g. Mi Unlock); the program cannot do that.
 - ROMs are installed through **sideload** only; flashing factory images / dynamic partitions through `fastbootd` is not implemented.
 - If several devices are connected, the first one is used.
-- Developed and tested on **Xiaomi Mi A3 (laurel_sprout)**. Other fastboot devices may work, but are untested.
+- Developed and tested on **Xiaomi Mi A3 (laurel_sprout)** and **Xiaomi 11T Pro**. Other fastboot devices may work, but are untested.
 
 ## Troubleshooting
 
@@ -141,7 +142,7 @@ Open **Theme** and pick **Custom Image** or **Liquid Glass Image**, then choose 
 | `adb: unauthorized` | Unlock the phone and tap *Allow USB debugging* |
 | Phone not detected | Re-run the udev setup (`51-android-flasher.rules`), replug the cable |
 | `Image too large` / flash fails | The image does not fit the partition — check which partition it is meant for |
-| Chinese / Japanese shows boxes | Fedora: `google-noto-sans-cjk-fonts` · Debian/Ubuntu: `fonts-noto-cjk` · Arch: `noto-fonts-cjk` |
+| Chinese / Japanese / Korean shows boxes | Fedora: `google-noto-sans-cjk-fonts` · Debian/Ubuntu: `fonts-noto-cjk` · Arch: `noto-fonts-cjk` |
 | Windows: phone not seen in fastboot | Install the Google USB Driver / your vendor's driver, then replug |
 | Windows: SmartScreen / antivirus warning on the exe | A self-built PyInstaller exe is unsigned. Run from source instead (`AndroidFlasher.bat`) |
 | ARM Linux: platform-tools can't be downloaded | Google's tools are x86_64 only — install `adb`/`fastboot` from your distro (`apt install adb fastboot` · `pacman -S android-tools`) |
@@ -151,7 +152,7 @@ Open **Theme** and pick **Custom Image** or **Liquid Glass Image**, then choose 
 ## Project layout
 
 ```
-Android Flasher.py  # the whole application (Tkinter)
+Android_Flasher.py  # the whole application (Tkinter)
 install.sh          # Linux: dependencies (apt / pacman / dnf) + app-menu entry
 AndroidFlasher.bat  # Windows: run from source
 build_windows.bat   # Windows: build AndroidFlasher.exe
@@ -165,7 +166,7 @@ LICENSE
 
 Issues and pull requests are welcome. When reporting a bug please include: device model, ROM/recovery name and version, the log from the program window, and your OS / distribution and version.
 
-New translations: strings live in the `TRANSLATIONS` dictionary in `Android Flasher.py` (the Russian text is the key).
+New translations: strings live in the `TRANSLATIONS` dictionary in `Android_Flasher.py` (the Russian text is the key).
 
 ## License
 

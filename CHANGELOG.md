@@ -2,6 +2,30 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.4.0] — 2026-10-29
+
+### Added
+- 7 more languages: Українська, Polski, Nederlands, Italiano, Türkçe, Bahasa Indonesia, 한국어 (15 in total).
+- Animated theme and language menus (fade + slide) with rounded corners.
+- The background picture/GIF is chosen with the native system file dialog (zenity/kdialog).
+
+### Changed
+- `install.sh` starts the app through a small launcher that logs errors to `~/.cache/android-flasher.log`.
+- The main file is now `Android_Flasher.py`.
+
+## [1.3.0] — 2026-10-28
+
+### Added
+- **Custom Image** theme: your own picture or animated GIF as the window background (PNG, JPG, WEBP, BMP, GIF).
+- **Liquid Glass Image** theme: the same background with frosted-glass panels (blur, tint, highlight, border).
+- *Theme → Choose picture/GIF…* to change the background; the choice is saved in `config.json`.
+- Accent colour is picked from the background picture.
+- Translations for the new strings in all 8 languages.
+
+### Changed
+- English is now the default language on first launch (a language you already picked is kept).
+- `install.sh` and `build_windows.bat` install Pillow (optional, only needed for the image themes).
+
 ## [1.2.0] — 2026-10-23
 
 ### Added
